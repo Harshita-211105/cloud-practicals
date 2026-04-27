@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background: #f4f8ff;
+    color: #222;
+}
+
+header {
+    background: linear-gradient(to right, #0f4c81, #2d89ef);
+    color: white;
+    padding-bottom: 50px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 60px;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 12px 28px;
+    border: none;
+    background: white;
+    color: #0f4c81;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+section {
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    width: 260px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+ol {
+    margin-top: 25px;
+    list-style-position: inside;
+    font-size: 18px;
+}
+
+.stats-box {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.stats-box div {
+    background: white;
+    padding: 25px;
+    width: 180px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+footer {
+    background: #0f4c81;
+    color: white;
+    text-align: center;
+    padding: 18px;
+}
