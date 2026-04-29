@@ -19,6 +19,14 @@ h1, h2 {
     color: #0f172a;
 }
 
+.form-section,
+.action-section {
+    background: #f8fafc;
+    padding: 22px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
 input {
     width: 100%;
     padding: 13px;
@@ -43,6 +51,24 @@ button:hover {
     background: #1d4ed8;
 }
 
+.view-btn {
+    background: #7c3aed;
+    margin-left: 8px;
+}
+
+.view-btn:hover {
+    background: #6d28d9;
+}
+
+.clear-btn {
+    background: #64748b;
+    margin-left: 8px;
+}
+
+.clear-btn:hover {
+    background: #475569;
+}
+
 .student-card {
     background: #f8fafc;
     border-left: 5px solid #2563eb;
@@ -59,6 +85,10 @@ button:hover {
     background: #16a34a;
 }
 
+.edit-btn:hover {
+    background: #15803d;
+}
+
 .delete-btn {
     background: #dc2626;
     margin-left: 8px;
@@ -66,4 +96,9 @@ button:hover {
 
 .delete-btn:hover {
     background: #b91c1c;
+}
+
+#message {
+    font-weight: bold;
+    color: #16a34a;
 }

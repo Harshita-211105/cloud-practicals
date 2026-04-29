@@ -27,6 +27,24 @@ app.get("/students", (req, res) => {
     });
 });
 
+app.get("/students/search/:roll_no", (req, res) => {
+    db.get(
+        "SELECT * FROM students WHERE roll_no = ?",
+        [req.params.roll_no],
+        (err, row) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+
+            if (!row) {
+                return res.status(404).json({ message: "Student not found" });
+            }
+
+            res.json(row);
+        }
+    );
+});
+
 app.post("/students", (req, res) => {
     const { name, roll_no, email, course, year } = req.body;
 
