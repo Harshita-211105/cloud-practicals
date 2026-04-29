@@ -1,0 +1,12 @@
+1. Create instance and ssh into it
+2. Install - sudo apt update -> sudo apt install nodejs npm git -y -> check - npm -v and node.js -v
+3. Clone repo - git clone <url>
+4. go to the main folder
+5. install npm - npm install
+6. Edit SG - custom TCP, port 3000, anywhere
+7. run - node server.js
+
+if error->
+1. rm -rf node_modules package-lock.json
+2. npm install
+3. node server.js
