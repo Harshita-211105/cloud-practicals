@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.get("/tasks", async (req, res) => {
     try {
-        const tasks = await Task.find();
+        const tasks = await Task.find().sort({ createdAt: -1 });
         res.json(tasks);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -26,18 +26,18 @@ app.get("/tasks", async (req, res) => {
 app.post("/tasks", async (req, res) => {
     try {
         const task = new Task({
-            title: req.body.title
+            title: req.body.title,
+            dueDate: req.body.dueDate
         });
 
         await task.save();
         res.json(task);
     } catch (err) {
-        console.log("POST ERROR:", err);
         res.status(500).json({ error: err.message });
     }
 });
 
-app.put("/tasks/:id", async (req, res) => {
+app.put("/tasks/:id/toggle", async (req, res) => {
     try {
         const task = await Task.findById(req.params.id);
 
@@ -47,6 +47,23 @@ app.put("/tasks/:id", async (req, res) => {
 
         task.completed = !task.completed;
         await task.save();
+
+        res.json(task);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.put("/tasks/:id", async (req, res) => {
+    try {
+        const task = await Task.findByIdAndUpdate(
+            req.params.id,
+            {
+                title: req.body.title,
+                dueDate: req.body.dueDate
+            },
+            { new: true }
+        );
 
         res.json(task);
     } catch (err) {

@@ -5,6 +5,8 @@ import "./App.css";
 function App() {
   const [tasks, setTasks] = useState([]);
   const [taskTitle, setTaskTitle] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [editId, setEditId] = useState(null);
 
   const API_URL = "http://localhost:8000";
 
@@ -17,24 +19,40 @@ function App() {
     }
   };
 
-  const addTask = async () => {
+  const saveTask = async () => {
     if (!taskTitle.trim()) return;
 
     try {
-      await axios.post(`${API_URL}/tasks`, {
-        title: taskTitle,
-      });
+      if (editId) {
+        await axios.put(`${API_URL}/tasks/${editId}`, {
+          title: taskTitle,
+          dueDate: dueDate
+        });
+      } else {
+        await axios.post(`${API_URL}/tasks`, {
+          title: taskTitle,
+          dueDate: dueDate
+        });
+      }
 
       setTaskTitle("");
+      setDueDate("");
+      setEditId(null);
       fetchTasks();
     } catch (error) {
       console.log(error);
     }
   };
 
+  const editTask = (task) => {
+    setTaskTitle(task.title);
+    setDueDate(task.dueDate || "");
+    setEditId(task._id);
+  };
+
   const toggleTask = async (id) => {
     try {
-      await axios.put(`${API_URL}/tasks/${id}`);
+      await axios.put(`${API_URL}/tasks/${id}/toggle`);
       fetchTasks();
     } catch (error) {
       console.log(error);
@@ -50,14 +68,18 @@ function App() {
     }
   };
 
+  const cancelEdit = () => {
+    setTaskTitle("");
+    setDueDate("");
+    setEditId(null);
+  };
+
   useEffect(() => {
     fetchTasks();
   }, []);
 
   return (
     <div className="app">
-      {/* Navbar */}
-
       <nav className="navbar">
         <div className="nav-container">
           <h2>TaskFlow</h2>
@@ -65,20 +87,15 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero */}
-
       <section className="hero">
         <div className="hero-content">
           <h1>Organize Your Daily Tasks Easily</h1>
-
           <p>
-            A modern MERN stack task management application where users can add,
-            complete, and delete tasks efficiently.
+            A MERN stack task management application where users can create,
+            update, complete, and delete tasks with due dates.
           </p>
         </div>
       </section>
-
-      {/* Main */}
 
       <main className="main-container">
         <div className="task-input-box">
@@ -89,7 +106,21 @@ function App() {
             onChange={(e) => setTaskTitle(e.target.value)}
           />
 
-          <button onClick={addTask}>Add Task</button>
+          <input
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+          />
+
+          <button onClick={saveTask}>
+            {editId ? "Update Task" : "Add Task"}
+          </button>
+
+          {editId && (
+            <button className="cancel-btn" onClick={cancelEdit}>
+              Cancel
+            </button>
+          )}
         </div>
 
         <div className="tasks-grid">
@@ -105,6 +136,10 @@ function App() {
                     {task.title}
                   </h3>
 
+                  <p>
+                    Due Date: {task.dueDate ? task.dueDate : "Not set"}
+                  </p>
+
                   <span>
                     {task.completed ? "Completed" : "Pending"}
                   </span>
@@ -119,6 +154,13 @@ function App() {
                 >
                   {task.completed ? "Mark Pending" : "Mark Complete"}
                 </button>
+
+                  <button
+                    className="edit-btn"
+                    onClick={() => editTask(task)}
+                  >
+                    Edit
+                  </button>
 
                   <button
                     className="delete-btn"
