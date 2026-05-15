@@ -1,6 +1,0 @@
-1. Create 2 instances with same VPC, SG and Key-pair
-2. Connect to both instances through ssh on different terminal tabs using their public keys
-3. Try pinging both instances - ping <private-ip>
-4. From pc terminal send the key to VM1 so VM1 can SSH into VM2 - scp -i key.pem key.pem ubuntu@VM1_PUBLIC_IP:/home/ubuntu/
-5. Repeat for VM2
-6. Create file - echo "content" > <filename.txt>
